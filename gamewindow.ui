@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GameWindow</class>
+ <widget class="QDialog" name="GameWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>895</width>
+    <height>805</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QLineEdit{
+/* Размер и выравнивание */
+    min-width: 40px;
+    max-width: 100%;
+    min-height: 40px;
+    max-height: 100%;
+    text-align: center;  /* Текст по центру */
+    /* Шрифт */
+    font-size: 20px;
+    font-family: Arial;
+    font-weight: bold;
+    /* Границы и фон */
+    border: 2px solid #333;  /* Тонкая рамка */
+    border-radius: 2px;      /* Слегка скругленные углы */
+    background-color: white; /* Белый фон */
+    /* Отступы */
+    padding: 0;
+    margin: 0;
+;}
+
+/* Стиль при фокусе (выделении) */
+QLineEdit:focus {
+    border: 2px solid rgb(150, 150, 150);  
+    background-color: rgb(197, 197, 197);  
+}</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>10</y>
+     <width>341</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size:40px;</string>
+   </property>
+   <property name="text">
+    <string>Ошибки: </string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::MarkdownText</enum>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>90</y>
+     <width>691</width>
+     <height>681</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="mainGridLayout"/>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
