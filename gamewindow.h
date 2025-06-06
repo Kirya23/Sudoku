@@ -52,7 +52,8 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 
-
+    // Для unit-тестов
+    friend class TestGameWindow;
 };
 
 #endif // GAMEWINDOW_H

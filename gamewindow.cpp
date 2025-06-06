@@ -178,6 +178,6 @@ void GameWindow::updateCurrentState()
 }
 void GameWindow::updateErrorsLabel()
 {
-    ui->label->setText(QString("Ошибки: %1 / 3").arg(errorsCount));
+    ui->label->setText(QString("Ошибки: %1 / 4").arg(errorsCount));
 }
 

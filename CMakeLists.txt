@@ -5,64 +5,71 @@ project(Sudoku VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Test)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Test)
 
+# Основные исходные файлы приложения
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
+    gamewindow.h gamewindow.cpp gamewindow.ui
+    sudokugenerator.h sudokugenerator.cpp
+    levels.h levels.cpp levels.ui
+    gamesave.h gamesave.cpp
+    help.h help.cpp help.ui
+    settings.h settings.cpp settings.ui
 )
 
+# Основное приложение
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Sudoku
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         resourses.qrc
-        gamewindow.h gamewindow.cpp gamewindow.ui
-        sudokugenerator.h sudokugenerator.cpp
-        levels.h levels.cpp levels.ui
-        gamesave.h gamesave.cpp
-        help.h help.cpp help.ui
-        settings.h settings.cpp settings.ui
-
-
-
-
-
-
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET Sudoku APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
-    if(ANDROID)
-        add_library(Sudoku SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(Sudoku
-            ${PROJECT_SOURCES}
-        )
-    endif()
+    add_executable(Sudoku
+        ${PROJECT_SOURCES}
+        resourses.qrc
+    )
 endif()
 
 target_link_libraries(Sudoku PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
+# Настройка тестов
+enable_testing()
+
+# Файлы для тестирования (исключаем main.cpp и файлы UI)
+set(TEST_SOURCES
+    testgamewindow.cpp
+    gamewindow.cpp
+    gamewindow.h
+    sudokugenerator.cpp
+    sudokugenerator.h
+    gamesave.cpp
+    gamesave.h
+)
+
+# Создаем отдельный исполняемый файл для тестов
+add_executable(TestGameWindow ${TEST_SOURCES})
+target_link_libraries(TestGameWindow PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Test
+)
+
+# Добавляем тест в CTest
+add_test(NAME GameWindowTests COMMAND TestGameWindow)
+
+# Дополнительные настройки для основного приложения
 if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.Sudoku)
+    set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.Sudoku)
 endif()
+
 set_target_properties(Sudoku PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}

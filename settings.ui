@@ -26,7 +26,7 @@
     <string notr="true">font-size:40px;</string>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;So sorry, settings are&lt;br/&gt; currently under&lt;br/&gt; development&lt;span style=&quot; font-weight:700;&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;So sorry, settings are&lt;br/&gt;currently under&lt;br/&gt;development.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
